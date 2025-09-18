@@ -1,0 +1,150 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0b2e13;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 { color: #ffd700; }
+
+#credit-display {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ffd700;
+}
+
+#chip-selector {
+  margin-bottom: 10px;
+}
+
+#roulette-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#roulette-container {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+#roulette-wheel {
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #666 0%, #111 80%);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.5);
+  transform-style: preserve-3d;
+}
+
+.white-ball {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 0 8px #fff, inset 0 0 5px #ccc;
+  transition: left 0.016s, top 0.016s;
+}
+
+#spin-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  background: #ffd700;
+  border: none;
+  cursor: pointer;
+}
+
+#bet-table-container {
+  position: relative;
+  max-width: 400px;
+}
+
+.table-row {
+  display: flex;
+  justify-content: center;
+  margin: 2px 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 2px;
+}
+
+.betting-area {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.zero { background-color: green; color: #fff; }
+.outside { background-color: #333; }
+.dozen { background-color: #444; }
+.columns-bets { background-color: #555; }
+
+.chip {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: blue;
+}
+
+#gain-message {
+  margin-top: 15px;
+  background: #222;
+  padding: 15px;
+  border-radius: 8px;
+}
+#gain-message.hidden { display: none; }
+#gain-message button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ffd700;
+  border: none;
+}
+
+#casino-info {
+  margin: 15px auto;
+  padding: 10px;
+  max-width: 600px;
+  background: #222;
+  border-radius: 8px;
+  color: #fff;
+  text-align: left;
+}
+
+#casino-info a {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  #roulette-container { width: 300px; height: 300px; }
+  #roulette-wheel { width: 300px; height: 300px; }
+  .betting-area { width: 30px; height: 30px; font-size: 12px; }
+  .chip { width: 15px; height: 15px; font-size: 10px; }
+}

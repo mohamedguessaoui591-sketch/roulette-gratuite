@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chargement Roulette</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle, #013220, #001a0d);
+      overflow: hidden;
+    }
+
+    #loading-container {
+      text-align: center;
+      color: white;
+    }
+
+    canvas {
+      width: 250px;
+      height: 250px;
+      display: block;
+      margin: auto;
+    }
+
+    h2 {
+      margin-top: 15px;
+      font-family: Arial, sans-serif;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1s;
+    }
+
+    #overlay.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading-container">
+    <canvas id="loading-roulette" width="300" height="300"></canvas>
+    <h2>Chargement...</h2>
+  </div>
+
+  <div id="overlay"></div>
+
+  <script>
+    const canvas = document.getElementById("loading-roulette");
+    const ctx = canvas.getContext("2d");
+    const numbers = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
+    const colors = ["green","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black"];
+    let angle = 0;
+
+    function drawWheel(rot) {
+      const cx = canvas.width/2;
+      const cy = canvas.height/2;
+      const radius = 120;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      for(let i=0;i<numbers.length;i++){
+        const start = i*2*Math.PI/37 + rot;
+        const end = (i+1)*2*Math.PI/37 + rot;
+        ctx.beginPath();
+        ctx.moveTo(cx,cy);
+        ctx.arc(cx,cy,radius,start,end);
+        ctx.fillStyle = colors[i];
+        ctx.fill();
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      // centre doré
+      ctx.beginPath();
+      ctx.arc(cx,cy,40,0,2*Math.PI);
+      ctx.fillStyle = "gold";
+      ctx.fill();
+    }
+
+    function animate(){
+      angle += 0.05;
+      drawWheel(angle);
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Simuler le chargement -> transition vers index.html
+    setTimeout(()=>{
+      document.getElementById("overlay").classList.add("active");
+      setTimeout(()=>{
+        window.location.href="jeux.html";
+      },1000);
+    },3000); // ici 3s mais tu peux ajuster
+  </script>
+</body>
+</html>

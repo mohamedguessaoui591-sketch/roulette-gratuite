@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roulette Européenne Interactive</title>
+<link rel="stylesheet" href="jeux.css">
+</head>
+<body>
+
+<h1>Roulette Européenne Interactive</h1>
+
+<div id="credit-display">Crédit: <span id="credit">10000</span> €</div>
+
+<!-- Sélecteur de valeur des jetons -->
+<div id="chip-selector">
+  <label>Valeur du jeton :</label>
+  <select id="chip-value">
+    <option value="1">1 €</option>
+    <option value="10">10 €</option>
+  </select>
+</div>
+
+<section id="roulette-section">
+  <div id="roulette-wrapper">
+    <!-- Roulette -->
+    <div id="roulette-container">
+      <canvas id="roulette-wheel" width="500" height="500"></canvas>
+    </div>
+
+    <!-- Plateau de mise -->
+    <div id="bet-table-container">
+      <div id="chips-container"></div>
+
+      <!-- Case 0 centré au-dessus -->
+      <div class="table-row">
+        <div class="zero betting-area" data-bet-value="0">0</div>
+      </div>
+
+      <!-- Colonnes 1-36 -->
+      <div class="table-row numbers">
+        <div class="column" id="col1"></div>
+        <div class="column" id="col2"></div>
+        <div class="column" id="col3"></div>
+      </div>
+
+      <!-- Paris extérieurs -->
+      <div class="table-row outside-bets">
+        <div class="outside betting-area" data-bet-type="low">1-18</div>
+        <div class="outside betting-area" data-bet-type="color" data-bet-value="red">Rouge</div>
+        <div class="outside betting-area" data-bet-type="color" data-bet-value="black">Noir</div>
+        <div class="outside betting-area" data-bet-type="parity" data-bet-value="even">Pair</div>
+        <div class="outside betting-area" data-bet-type="parity" data-bet-value="odd">Impair</div>
+        <div class="outside betting-area" data-bet-type="high">19-36</div>
+      </div>
+
+      <!-- Douzaines -->
+      <div class="table-row dozens">
+        <div class="dozen betting-area" data-bet-value="firstDozen">1-12</div>
+        <div class="dozen betting-area" data-bet-value="secondDozen">13-24</div>
+        <div class="dozen betting-area" data-bet-value="thirdDozen">25-36</div>
+      </div>
+
+      <!-- Colonnes à 2:1 -->
+      <div class="table-row columns-bets">
+        <div class="betting-area" data-bet-value="firstColumn">2 to 1</div>
+        <div class="betting-area" data-bet-value="secondColumn">2 to 1</div>
+        <div class="betting-area" data-bet-value="thirdColumn">2 to 1</div>
+      </div>
+    </div>
+  </div>
+
+  <button id="spin-btn">SPIN</button>
+</section>
+
+<!-- Message gain / choix casino -->
+<div id="gain-message" class="hidden">
+  <p id="message-text"></p>
+  <button id="play-stake">Jouer sur Stake.com</button>
+  <button id="play-betify">Jouer sur Betify2.sh</button>
+</div>
+
+<!-- Publicités toujours visibles -->
+<div id="casino-info">
+  <h2>Jouez sur de vrais casinos en ligne !</h2>
+  <ul>
+    <li>
+      <b>Stake.com</b>: nécessite VPN et portefeuille crypto (ex: Kraken, Binance, Coinbase). 
+      <a href="https://stake.com" target="_blank">Accéder</a>
+    </li>
+    <li>
+      <b>Betify2.sh</b>: retrait en 2-3 jours, pas de VPN nécessaire. 
+      <a href="https://betify2.sh" target="_blank">Accéder</a>
+    </li>
+  </ul>
+  <p>Vous pouvez créer vos propres stratégies gratuitement sur cette roulette virtuelle avant de jouer avec de vrais gains !</p>
+</div>
+
+<script src="jeux.js"></script>
+</body>
+</html>

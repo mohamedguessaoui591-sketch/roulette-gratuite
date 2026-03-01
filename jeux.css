@@ -9,6 +9,26 @@ body {
 
 h1 { color: #ffd700; }
 
+/* ⚠️ Bannière d'avertissement */
+#warning-banner {
+  background: #b30000;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px;
+  margin: 10px auto;
+  border-radius: 6px;
+  max-width: 800px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
 #credit-display {
   font-size: 20px;
   margin-bottom: 10px;
@@ -60,34 +80,6 @@ h1 { color: #ffd700; }
   cursor: pointer;
 }
 
-#bet-table-container {
-  position: relative;
-  max-width: 400px;
-}
-
-.table-row {
-  display: flex;
-  justify-content: center;
-  margin: 2px 0;
-}
-
-.column {
-  display: flex;
-  flex-direction: column-reverse;
-  margin: 0 2px;
-}
-
-.betting-area {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
-  margin: 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 5px;
-}
 
 .zero { background-color: green; color: #fff; }
 .outside { background-color: #333; }
@@ -127,19 +119,59 @@ h1 { color: #ffd700; }
   border: none;
 }
 
+/* Section info casino */
 #casino-info {
-  margin: 15px auto;
-  padding: 10px;
-  max-width: 600px;
-  background: #222;
-  border-radius: 8px;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  background: #1a1a1a;
+  border-radius: 10px;
   color: #fff;
   text-align: left;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
 }
 
-#casino-info a {
+#casino-info h2 {
+  text-align: center;
   color: #ffd700;
-  text-decoration: underline;
+}
+
+.casino-card {
+  background: #222;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.casino-card h3 {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.casino-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.casino-card li {
+  margin: 5px 0;
+}
+
+.casino-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.casino-btn:hover {
+  background: #e6c200;
 }
 
 @media screen and (max-width: 600px) {

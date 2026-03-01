@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+   window.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('roulette-wheel');
   const ctx = canvas.getContext('2d');
   const rouletteContainer = document.getElementById('roulette-container');
@@ -18,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let credit = 10000;
   let bets = {};
   let spinning = false;
+  let firstSpin = true; // ✅ pour afficher une alerte uniquement au premier spin
 
   // Création bille blanche
   const ball = document.createElement('div');
@@ -101,6 +102,9 @@ window.addEventListener('DOMContentLoaded', () => {
     gainMessage.classList.add('hidden');
     canvas.scrollIntoView({behavior:'smooth', block:'center'});
 
+    // ✅ Alerte au premier spin
+  
+
     const ballRadius = radius - 20;
     let angle = Math.random()*2*Math.PI;
     let speed = 0.3 + Math.random()*0.2;
@@ -122,7 +126,6 @@ window.addEventListener('DOMContentLoaded', () => {
       if(speed > 0.002){
         requestAnimationFrame(animate);
       } else {
-        // numéro gagnant selon position finale de la bille
         let finalAngle = (angle + Math.PI/2) % (2*Math.PI);
         if(finalAngle<0) finalAngle += 2*Math.PI;
         const step = 2*Math.PI/numbers.length;
@@ -156,7 +159,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     updateCredit(winAmount);
     messageText.innerHTML = `Le numéro gagnant est <b>${winningNumber}</b>!<br>
-      Vous avez gagné ${winAmount} €.<br>Voulez-vous jouer avec de l'argent réel ?`;
+      Vous avez gagné ${winAmount} €.<br>
+      ⚠️ Rappel : évitez de jouer sur des sites frauduleux <br>
+      ✅ Jouez uniquement sur <b>Stake.com</b> ou <b>Betify2.sh</b>.`;
     gainMessage.classList.remove('hidden');
 
     bets = {};
@@ -167,3 +172,4 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('play-stake').addEventListener('click', ()=>window.open('https://stake.com','_blank'));
   document.getElementById('play-betify').addEventListener('click', ()=>window.open('https://betify2.sh','_blank'));
 });
+

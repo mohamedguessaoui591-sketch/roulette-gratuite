@@ -10,6 +10,13 @@
 
 <h1>Roulette Européenne Interactive</h1>
 
+<!-- ⚠️ Avertissement SCAM -->
+<div id="warning-banner">
+  ⚠️ Attention : De nombreux casinos en ligne 
+  ont des méthodes de retrait douteuses et sont considérés comme des <b>SCAM</b>.
+  <br>Ne déposez jamais d'argent sur ces sites !
+</div>
+
 <div id="credit-display">Crédit: <span id="credit">10000</span> €</div>
 
 <!-- Sélecteur de valeur des jetons -->
@@ -32,10 +39,7 @@
     <div id="bet-table-container">
       <div id="chips-container"></div>
 
-      <!-- Case 0 centré au-dessus -->
-      <div class="table-row">
-        <div class="zero betting-area" data-bet-value="0">0</div>
-      </div>
+      
 
       <!-- Colonnes 1-36 -->
       <div class="table-row numbers">
@@ -43,7 +47,10 @@
         <div class="column" id="col2"></div>
         <div class="column" id="col3"></div>
       </div>
-
+      <!-- Case 0 centré au-dessus -->
+      <iv class="table-row">
+        <div class="zerdo betting-area" data-bet-value="0">0</div>
+      </div>
       <!-- Paris extérieurs -->
       <div class="table-row outside-bets">
         <div class="outside betting-area" data-bet-type="low">1-18</div>
@@ -52,22 +59,17 @@
         <div class="outside betting-area" data-bet-type="parity" data-bet-value="even">Pair</div>
         <div class="outside betting-area" data-bet-type="parity" data-bet-value="odd">Impair</div>
         <div class="outside betting-area" data-bet-type="high">19-36</div>
-      </div>
+      </div> 
 
-      <!-- Douzaines -->
-      <div class="table-row dozens">
-        <div class="dozen betting-area" data-bet-value="firstDozen">1-12</div>
-        <div class="dozen betting-area" data-bet-value="secondDozen">13-24</div>
-        <div class="dozen betting-area" data-bet-value="thirdDozen">25-36</div>
-      </div>
+       <!-- Douzaines -->
+  <div class="dozens-column">
+    <div class="dozen betting-area" data-bet-value="firstDozen">1-12</div>
+    <div class="dozen betting-area" data-bet-value="secondDozen">13-24</div>
+    <div class="dozen betting-area" data-bet-value="thirdDozen">25-36</div>
+  </div>
 
-      <!-- Colonnes à 2:1 -->
-      <div class="table-row columns-bets">
-        <div class="betting-area" data-bet-value="firstColumn">2 to 1</div>
-        <div class="betting-area" data-bet-value="secondColumn">2 to 1</div>
-        <div class="betting-area" data-bet-value="thirdColumn">2 to 1</div>
-      </div>
-    </div>
+
+
   </div>
 
   <button id="spin-btn">SPIN</button>
@@ -76,26 +78,48 @@
 <!-- Message gain / choix casino -->
 <div id="gain-message" class="hidden">
   <p id="message-text"></p>
-  <button id="play-stake">Jouer sur Stake.com</button>
+  <button id="play-stake">Jouer sur stake.com/?c=sHtTPrEn</button>
   <button id="play-betify">Jouer sur Betify2.sh</button>
 </div>
 
-<!-- Publicités toujours visibles -->
+<!-- Publicités casinos fiables -->
 <div id="casino-info">
-  <h2>Jouez sur de vrais casinos en ligne !</h2>
-  <ul>
-    <li>
-      <b>Stake.com</b>: nécessite VPN et portefeuille crypto (ex: Kraken, Binance, Coinbase). 
-      <a href="https://stake.com" target="_blank">Accéder</a>
-    </li>
-    <li>
-      <b>Betify2.sh</b>: retrait en 2-3 jours, pas de VPN nécessaire. 
-      <a href="https://betify2.sh" target="_blank">Accéder</a>
-    </li>
-  </ul>
-  <p>Vous pouvez créer vos propres stratégies gratuitement sur cette roulette virtuelle avant de jouer avec de vrais gains !</p>
+  <h2>✅ Casinos en ligne 100% fiables</h2>
+  <p>Contrairement aux sites douteux, voici deux plateformes reconnues pour leurs méthodes de retrait rapides et sécurisées :</p>
+
+  <div class="casino-card">
+    <h3>🎯 stake.com</h3>
+    <ul>
+      <li>💳 Retraits <b>instantanés</b> en cryptomonnaies</li>
+      <li>🔐 Sécurité renforcée et plateforme internationale</li>
+      <li>🌍 Nécessite un VPN et un portefeuille crypto (Kraken, Binance, Coinbase...)</li>
+    </ul>
+    <a href="https://stake.com" target="_blank" class="casino-btn">Accéder à stake.com/?c=sHtTPrEn</a>
+  </div>
+
+  <div class="casino-card">
+    <h3>💎 Betify2.sh</h3>
+    <ul>
+      <li>💸 Retraits <b>100% fiables</b> en 2 à 3 jours ouvrés</li>
+      <li>✅ Aucun VPN requis</li>
+      <li>📈 Idéal pour les joueurs francophones</li>
+    </ul>
+    <a href="https://betify2.sh" target="_blank" class="casino-btn">Accéder à Betify2.sh</a>
+  </div>
+
+  <p style="margin-top:15px;">👉 Utilisez cette roulette gratuite pour tester vos stratégies avant de jouer avec de vrais gains sur des sites sécurisés !</p>
 </div>
 
 <script src="jeux.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  socket.on("userCount", function(count) {
+      document.getElementById("online").innerText = 
+          "Utilisateurs en ligne : " + count;
+  });
+</script>
+
 </body>
 </html>

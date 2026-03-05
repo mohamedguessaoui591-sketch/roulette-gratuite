@@ -1,113 +1,273 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chargement Roulette</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle, #013220, #001a0d);
-      overflow: hidden;
-    }
+body{
+  font-family: Arial, sans-serif;
+  background: #0b2e13;
+  color: #fff;
+  margin: 0;
+  padding: 12px;           /* ✅ au lieu de 0 */
+  text-align: center;
+}
+*{ box-sizing: border-box; }
+h1 { color: #ffd700; }
 
-    #loading-container {
-      text-align: center;
-      color: white;
-    }
+/* ⚠️ Bannière d'avertissement */
+#warning-banner {
+  background: #b30000;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px;
+  margin: 10px auto;
+  border-radius: 6px;
+  max-width: 800px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  animation: blink 1.5s infinite;
+}
 
-    canvas {
-      width: 250px;
-      height: 250px;
-      display: block;
-      margin: auto;
-    }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
 
-    h2 {
-      margin-top: 15px;
-      font-family: Arial, sans-serif;
-      animation: pulse 1.5s infinite;
-    }
+#credit-display {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ffd700;
+}
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
+#chip-selector {
+  margin-bottom: 10px;
+}
 
-    #overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: black;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 1s;
-    }
+#roulette-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
 
-    #overlay.active {
-      opacity: 1;
-    }
-  </style>
-</head>
-<body>
-  <div id="loading-container">
-    <canvas id="loading-roulette" width="300" height="300"></canvas>
-    <h2>Chargement...</h2>
-  </div>
+#roulette-container{
+  position: relative;
+  width: min(70vmin, 420px);
+  height: min(70vmin, 420px);
+  margin: 0 auto;
+}
 
-  <div id="overlay"></div>
+#roulette-wheel{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+#roulette-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+#roulette-wrapper{
+  align-items: flex-start;
+}
+.white-ball {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10;
+  box-shadow: 0 0 8px #fff, inset 0 0 5px #ccc;
+  transition: left 0.016s, top 0.016s;
+}
 
-  <script>
-    const canvas = document.getElementById("loading-roulette");
-    const ctx = canvas.getContext("2d");
-    const numbers = [0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26];
-    const colors = ["green","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black","red","black"];
-    let angle = 0;
+#spin-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  background: #ffd700;
+  border: none;
+  cursor: pointer;
+  position: relative;
+} #bet-table-container{
+  position: relative;
+  width: min(92vw, 420px);
+  max-width: 100%;
+  margin: 0 auto;
+}
+/* Ligne du zéro */
+.zero-row {
+  display: flex;
+  justify-content: center;
+}
 
-    function drawWheel(rot) {
-      const cx = canvas.width/2;
-      const cy = canvas.height/2;
-      const radius = 120;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
+/* Le zéro prend toute la largeur des 3 colonnes */
+.zero {
+  width: 100%;
+  text-align: center;
+}
+.table-row {
+  display: flex;
+  justify-content: center;
+  margin: 2px 0;
+}.table-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
 
-      for(let i=0;i<numbers.length;i++){
-        const start = i*2*Math.PI/37 + rot;
-        const end = (i+1)*2*Math.PI/37 + rot;
-        ctx.beginPath();
-        ctx.moveTo(cx,cy);
-        ctx.arc(cx,cy,radius,start,end);
-        ctx.fillStyle = colors[i];
-        ctx.fill();
-        ctx.strokeStyle = "white";
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
+.outside-bets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-      // centre doré
-      ctx.beginPath();
-      ctx.arc(cx,cy,40,0,2*Math.PI);
-      ctx.fillStyle = "gold";
-      ctx.fill();
-    }
+.outside-bets .betting-area {
+  width: 110px;
+  text-align: center;
+}
+/* Bloc extérieur droit */
+.outside-bets {
+  display: flex;
+  flex-direction: column; /* vertical global */
+  gap: 15px; /* espace entre douzaines et colonnes */
+}
 
-    function animate(){
-      angle += 0.05;
-      drawWheel(angle);
-      requestAnimationFrame(animate);
-    }
-    animate();
+/* Colonne des douzaines */
+.dozens-column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-    // Simuler le chargement -> transition vers index.html
-    setTimeout(()=>{
-      document.getElementById("overlay").classList.add("active");
-      setTimeout(()=>{
-        window.location.href="jeux.html";
-      },1000);
-    },3000); // ici 3s mais tu peux ajuster
-  </script>
-</body>
-</html>
+/* Colonne des 2:1 */
+.special-bets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Style des cases */
+.dozen, .special-bets .betting-area {
+  width: 110px;
+  text-align: center;
+}
+.column {
+  display: flex;
+  flex-direction: column-reverse;
+  margin: 0 2px;
+}
+
+.betting-area {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  margin: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.zero { background-color: green; color: #fff; }
+.outside { background-color: #333; }
+.dozen { background-color: #444; }
+.columns-bets { background-color: #555; }
+
+.chip {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+  border: 1px solid #fff;
+  background-color: blue;
+}
+
+#gain-message {
+  margin-top: 15px;
+  background: #222;
+  padding: 15px;
+  border-radius: 8px;
+}
+#gain-message.hidden { display: none; }
+#gain-message button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #ffd700;
+  border: none;
+}
+
+/* Section info casino */
+#casino-info {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+#casino-info h2 {
+  text-align: center;
+  color: #ffd700;
+}
+
+.casino-card {
+  background: #222;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.casino-card h3 {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.casino-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.casino-card li {
+  margin: 5px 0;
+}
+
+.casino-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.casino-btn:hover {
+  background: #e6c200;
+}
+
+
+  @media screen and (max-width: 600px){
+  .betting-area { width: 30px; height: 30px; font-size: 12px; }
+  .chip { width: 15px; height: 15px; font-size: 10px; }
+
+  /* optionnel: réduire les gros blocs */
+  #warning-banner{ font-size: 14px; }
+}
+  .betting-area { width: 30px; height: 30px; font-size: 12px; }
+  .chip { width: 15px; height: 15px; font-size: 10px; }

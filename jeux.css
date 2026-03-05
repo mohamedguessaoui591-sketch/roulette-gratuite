@@ -1,13 +1,33 @@
-body {
+body{
   font-family: Arial, sans-serif;
   background: #0b2e13;
   color: #fff;
   margin: 0;
-  padding: 0;
+  padding: 12px;           /* ✅ au lieu de 0 */
   text-align: center;
 }
-
+*{ box-sizing: border-box; }
 h1 { color: #ffd700; }
+
+/* ⚠️ Bannière d'avertissement */
+#warning-banner {
+  background: #b30000;
+  color: #fff;
+  font-weight: bold;
+  padding: 15px;
+  margin: 10px auto;
+  border-radius: 6px;
+  max-width: 800px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
 
 #credit-display {
   font-size: 20px;
@@ -26,19 +46,27 @@ h1 { color: #ffd700; }
   flex-wrap: wrap;
 }
 
-#roulette-container {
+#roulette-container{
   position: relative;
-  width: 500px;
-  height: 500px;
+  width: min(70vmin, 420px);
+  height: min(70vmin, 420px);
+  margin: 0 auto;
 }
 
-#roulette-wheel {
-  border-radius: 50%;
-  background: radial-gradient(circle at center, #666 0%, #111 80%);
-  box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 0 20px rgba(0,0,0,0.5);
-  transform-style: preserve-3d;
+#roulette-wheel{
+  width: 100%;
+  height: 100%;
+  display: block;
 }
-
+#roulette-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+#roulette-wrapper{
+  align-items: flex-start;
+}
 .white-ball {
   width: 20px;
   height: 20px;
@@ -58,19 +86,70 @@ h1 { color: #ffd700; }
   background: #ffd700;
   border: none;
   cursor: pointer;
-}
-
-#bet-table-container {
   position: relative;
-  max-width: 400px;
+} #bet-table-container{
+  position: relative;
+  width: min(92vw, 420px);
+  max-width: 100%;
+  margin: 0 auto;
+}
+/* Ligne du zéro */
+.zero-row {
+  display: flex;
+  justify-content: center;
 }
 
+/* Le zéro prend toute la largeur des 3 colonnes */
+.zero {
+  width: 100%;
+  text-align: center;
+}
 .table-row {
   display: flex;
   justify-content: center;
   margin: 2px 0;
+}.table-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
 }
 
+.outside-bets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.outside-bets .betting-area {
+  width: 110px;
+  text-align: center;
+}
+/* Bloc extérieur droit */
+.outside-bets {
+  display: flex;
+  flex-direction: column; /* vertical global */
+  gap: 15px; /* espace entre douzaines et colonnes */
+}
+
+/* Colonne des douzaines */
+.dozens-column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Colonne des 2:1 */
+.special-bets {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Style des cases */
+.dozen, .special-bets .betting-area {
+  width: 110px;
+  text-align: center;
+}
 .column {
   display: flex;
   flex-direction: column-reverse;
@@ -127,24 +206,68 @@ h1 { color: #ffd700; }
   border: none;
 }
 
+/* Section info casino */
 #casino-info {
-  margin: 15px auto;
-  padding: 10px;
-  max-width: 600px;
-  background: #222;
-  border-radius: 8px;
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 800px;
+  background: #1a1a1a;
+  border-radius: 10px;
   color: #fff;
   text-align: left;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
 }
 
-#casino-info a {
+#casino-info h2 {
+  text-align: center;
   color: #ffd700;
-  text-decoration: underline;
 }
 
-@media screen and (max-width: 600px) {
-  #roulette-container { width: 300px; height: 300px; }
-  #roulette-wheel { width: 300px; height: 300px; }
+.casino-card {
+  background: #222;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.casino-card h3 {
+  color: #ffd700;
+  margin-bottom: 10px;
+}
+
+.casino-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.casino-card li {
+  margin: 5px 0;
+}
+
+.casino-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #ffd700;
+  color: #000;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.casino-btn:hover {
+  background: #e6c200;
+}
+
+
+  @media screen and (max-width: 600px){
   .betting-area { width: 30px; height: 30px; font-size: 12px; }
   .chip { width: 15px; height: 15px; font-size: 10px; }
+
+  /* optionnel: réduire les gros blocs */
+  #warning-banner{ font-size: 14px; }
 }
+  .betting-area { width: 30px; height: 30px; font-size: 12px; }
+  .chip { width: 15px; height: 15px; font-size: 10px; }
